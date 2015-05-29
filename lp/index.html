@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html class="no-js" lang=""><head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Lobster">
+
+        <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Lato">
+
+        <link rel="apple-touch-icon" href="apple-touch-icon.png">
+        <!-- Place favicon.ico in the root directory -->
+
+        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/main.css">
+        <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+        <style>
+            h1 {
+                color: #222;
+                cursor: pointer;
+                font-size: 68px;
+                margin-bottom: 0;
+                padding: 80px 80px 60px 80px;
+                text-align: center;
+            }
+            .js-google-fonts, .js-display {
+                font-family: Lobster, cursive;
+            }
+            .js-cli, .js-sans {
+                font-family: Lato, sans-serif;
+            }
+            h2 {
+                color: #666;
+                font-size: 24px;
+                margin: 10px auto 40px auto;
+                padding: 0;
+                text-align: center;
+            }
+
+            .explanation {
+                border: solid 5px #444;
+                font-size: 18px;
+                padding: 10px;
+                max-width: 420px;
+                margin: 10px auto;
+            }
+        </style>
+    </head>
+    <body>
+        <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <h1>
+            <span class="js-google-fonts">google fonts</span>
+            <br>
+            <span class="js-cli">cli</span>
+        </h1>
+        <h2>
+            click the heading above to load new fonts
+        </h2>
+
+        <div class="explanation">
+            the heading is using 
+            <a href="#" class="js-display">lobster</a>, a display font
+            <br>
+            and 
+            <a href="#" class="js-sans">lato</a>, a sans font
+        </div>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.3.min.js"><\/script>')</script>
+        <script src="js/plugins.js"></script>
+        <script src="js/main.js"></script>
+        <script src="lp.js"></script>
+        <script>
+        $("h1").click(clickHandler);
+        setInterval(clickHandler, 7500);
+        function clickHandler() {
+            var f1 = randomFont("display"),
+                f2 = randomFont("sans-serif");
+            console.log("display", f1);
+            console.log("sans", f2);
+            $("head").append(toLinkTag(f1.family)).append(toLinkTag(f2.family));
+            $(".js-google-fonts,.js-display").css("font-family", f1.family);
+            $('.js-display').text(f1.family);
+            $(".js-cli,.js-sans").css("font-family", f2.family);
+            $(".js-sans").text(f2.family)
+            return clickHandler;
+        }
+
+        function toLinkTag(name) {
+            return $("<link rel='stylesheet' type='text/css'/>").attr("href", "https://fonts.googleapis.com/css?family="+encodeURIComponent(name))
+        }
+        </script>
+        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+        <script>
+            (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+            function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+            e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+            e.src='https://www.google-analytics.com/analytics.js';
+            r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+            ga('create','UA-XXXXX-X','auto');ga('send','pageview');
+        </script>
+    
+
+</body></html>
