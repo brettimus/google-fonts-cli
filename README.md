@@ -24,9 +24,16 @@ gfi ./index.html Lato 300
 gfi GIVEMEPRETTYFONTSNOW
 ```
 
+## In the Works
+* Random Font Selection
+* Sensible defaults
+* Simpler options parsing (or.. ya know. options parsing in general)
+
 ## TODO
 * Remove relative paths from calls to `fs`
 * ~~get google font info~~
 * Parse font variants as tuples
 * ~~Preserve original document's indentation~~ ( a little buggy but almost there )
+* Optimize stuff that says it needs to be opmtimized
+* Hammer out interface
 * PROFIT
