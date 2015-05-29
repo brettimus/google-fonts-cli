@@ -10,6 +10,13 @@
     "google-font",
     "typography"
   ],
+  "repository": [
+    "type": "git",
+    "url": "https://github.com/brettimus/google-fonts-cli.git"
+  ],
+  "bugs": {
+    "url" : "https://github.com/brettimus/google-fonts-cli/issues"
+  },
   "author": "boots <brbeut@gmail.com> (http://brettim.us/)",
   "license": "MIT",
   "preferGlobal": true,
