@@ -16,11 +16,12 @@ $ gfi ./index.html Lato 300
 
 ## Ideal Usage
 ```
-$ 
+$ gfi GIVEMEPRETTYFONTSNOW
 ```
 
 ## TODO
-* Scrape google font info
+* Remove relative paths from calls to `fs`
+* ~~get google font info~~
 * Parse font variants as tuples
-* Preserve original document's indentation
+* ~~Preserve original document's indentation~~ ( a little buggy but almost there )
 * PROFIT
