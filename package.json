@@ -1,0 +1,19 @@
+{
+  "name": "google-fonts-cli",
+  "version": "0.0.0",
+  "description": "a quick way to add a google font to your project",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "font",
+    "google-font",
+    "typography"
+  ],
+  "author": "boots <brbeut@gmail.com> (http://brettim.us/)",
+  "license": "MIT",
+  "preferGlobal": true,
+  "bin": {
+    "gfi": "index.js"
+  }
+}
