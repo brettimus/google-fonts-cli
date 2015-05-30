@@ -1,57 +1,7 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-var B = require('boots-utils');
-
-module.exports = FontCollection;
-
-/**
- * @constructor
- * @param {Font[]} data - A json blob from the google-fonts-api
- */
-function FontCollection(data) {
-    this.FONTS = data.items;
-}
-
-/** currently only searches for family */
-FontCollection.prototype.find = function(options) {
-    var family = options.family;
-
-    for (var i = 0; i < this.FONTS.length; i++) {
-        if (this.FONTS[i].family === family) {
-            return this.FONTS[i];
-        }
-    }
-};
-
-FontCollection.prototype.random = function(category, variants) {
-    var fonts = this.FONTS;
-    // TODO - refactor. can this in one pass instead of two
-    if (variants) {
-        fonts = fonts.filter(_fontVariantFilter);
-    }
-    if (category) {
-        fonts = fonts.concat(this.FONTS.filter(_fontCategoryFilter));
-    }
-    return B.array.randomInArray(fonts);
-
-    function _fontCategoryFilter(font) {
-        return font.category === category;
-    }
-
-    function _fontVariantFilter(font) {
-        // TODO - optimize, low priority
-        return variants.some(function(variant) {
-            return font.variants.some(function(fontVariant) {
-                return variant === fontVariant;
-            });
-        });
-    }
-};
-
-
-},{"boots-utils":5}],2:[function(require,module,exports){
 (function (global){
 var B = require("boots-utils");
-var FontCollection = require("../../font-collection.js");
+var FontCollection = require("../../src/font-collection.js");
 
 global.getFonts = function getFonts(path, next) {
     B.ajax.loadJSON(path, function(data) {
@@ -63,7 +13,7 @@ global.getFonts = function getFonts(path, next) {
 
 };
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../../font-collection.js":1,"boots-utils":5}],3:[function(require,module,exports){
+},{"../../src/font-collection.js":5,"boots-utils":4}],2:[function(require,module,exports){
 module.exports = {
     loadJSON: loadJSON,
 };
@@ -95,7 +45,7 @@ function loadJSON(path, success, error, context) {
     xhr.send();
     return xhr;
 }
-},{}],4:[function(require,module,exports){
+},{}],3:[function(require,module,exports){
 module.exports = {
     first: first,
     isArray: isArray,
@@ -151,7 +101,7 @@ function range(start, end, step) {
 function randomInArray(ary) {
     return ary[Math.floor(Math.random() * ary.length)];
 }
-},{}],5:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 module.exports = {
     ajax: require("./ajax"),
     array: require("./array"),
@@ -221,4 +171,54 @@ function extendHelper(destination, source) {
     }
     return destination;
 }
-},{"./ajax":3,"./array":4}]},{},[2]);
+},{"./ajax":2,"./array":3}],5:[function(require,module,exports){
+var B = require('boots-utils');
+
+module.exports = FontCollection;
+
+/**
+ * @constructor
+ * @param {Font[]} data - A json blob from the google-fonts-api
+ */
+function FontCollection(data) {
+    this.FONTS = data.items;
+}
+
+/** currently only searches for family */
+FontCollection.prototype.find = function(options) {
+    var family = options.family;
+
+    for (var i = 0; i < this.FONTS.length; i++) {
+        if (this.FONTS[i].family === family) {
+            return this.FONTS[i];
+        }
+    }
+};
+
+FontCollection.prototype.random = function(category, variants) {
+    var fonts = this.FONTS;
+    // TODO - refactor. can this in one pass instead of two
+    if (variants) {
+        fonts = fonts.filter(_fontVariantFilter);
+    }
+    if (category) {
+        fonts = fonts.concat(this.FONTS.filter(_fontCategoryFilter));
+    }
+    return B.array.randomInArray(fonts);
+
+    function _fontCategoryFilter(font) {
+        return font.category === category;
+    }
+
+    function _fontVariantFilter(font) {
+        // TODO - optimize, low priority
+        return variants.some(function(variant) {
+            return font.variants.some(function(fontVariant) {
+                return variant === fontVariant;
+            });
+        });
+    }
+};
+
+
+},{"boots-utils":4}]},{},[1]);

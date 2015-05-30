@@ -1,5 +1,5 @@
 which jsdoc > /dev/null && \
-jsdoc ./*.js -d docs && \
+jsdoc ./src/*.js -d docs && \
 
 which browserify > /dev/null && \
 browserify ./lp/js/lp-src.js -o ./lp/js/lp.js
