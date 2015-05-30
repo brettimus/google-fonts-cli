@@ -14,12 +14,12 @@ Parser.prototype = Object.create(Fonter.prototype);
 
 /** passes along data about an html document */
 Parser.prototype.parse = function parse(next) {
-    var hasHead = !!(document.querySelector("head")),
-        hasLinkTag = !!(document.querySelector("link")),
+    var hasHead = !!(this.document.querySelector("head")),
+        hasLinkTag = !!(this.document.querySelector("link")),
         result = {
             hasHead: hasHead,
             hasLinkTag: hasLinkTag,
-            document: document,
+            document: this.document,
         };
     if (next) {
         next(result);

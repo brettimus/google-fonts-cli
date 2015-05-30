@@ -1,4 +1,5 @@
-var Fonter = require("./fonter");
+var fs = require("fs"),
+    Fonter = require("./fonter");
 
 module.exports = Writer;
 
