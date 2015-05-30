@@ -1,0 +1,97 @@
+/* http://coolors.co/app/2b193d-2c365e-484d6d-4b8f8c-c5979d */
+
+body {
+    color: #222;
+}
+
+header {
+    background: #f4f4f4;
+    min-height: 500px;
+    padding-top: 60px;
+    width: 100%;
+}
+
+.font-table {
+    display: table;
+    margin: 0 auto;
+    /*width: 100%;*/
+}
+
+.font-table * {
+    border: solid thin white;
+}
+
+.font-table .row {
+    box-sizing: border-box;
+    /*min-height: 100px;*/
+    min-height: 160px;
+
+    padding: 25px 25px 30px 60px;
+    vertical-align: middle;
+}
+
+.font-table .row .cell {
+  box-sizing: border-box;
+  display: table-cell;
+  height: 125px;
+  padding: 15px;
+  padding-top: 25px;
+  text-align: center;
+}
+
+.font-table .row .cell a {
+    color: #484D6D;
+    font-size: 24px;
+    text-decoration: none;
+}
+
+.font-table .row .example {
+    min-width: 200px;
+    padding: 30px 15px 15px 40px;
+}
+
+.font-table .row .font {
+    color: #666;
+    float: left;
+    width: 125px;
+}
+.clearfix {
+    clear: both;
+}
+
+.text-lobster {
+    font-family: Lobster, cursive;
+}
+.text-lato {
+    font-family: Lato, sans-serif;
+}
+
+/*h1 {
+    color: #222;
+    cursor: pointer;
+    font-size: 68px;
+    margin-bottom: 0;
+    padding: 80px 80px 60px 80px;
+    text-align: center;
+}
+.js-google-fonts, .js-display {
+    font-family: Lobster, cursive;
+}
+.js-cli, .js-sans {
+    font-family: Lato, sans-serif;
+}
+h2 {
+    color: #666;
+    font-size: 24px;
+    margin: 10px auto 40px auto;
+    padding: 0;
+    text-align: center;
+}
+
+.explanation {
+    border: solid 5px #444;
+    font-size: 18px;
+    padding: 10px;
+    max-width: 420px;
+    margin: 10px auto;
+}*/

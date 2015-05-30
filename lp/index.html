@@ -7,7 +7,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Lobster">
-
         <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Lato">
 
         <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -15,48 +14,38 @@
 
         <link rel="stylesheet" href="css/normalize.css">
         <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/lp.css">
         <script src="js/vendor/modernizr-2.8.3.min.js"></script>
-        <style>
-            h1 {
-                color: #222;
-                cursor: pointer;
-                font-size: 68px;
-                margin-bottom: 0;
-                padding: 80px 80px 60px 80px;
-                text-align: center;
-            }
-            .js-google-fonts, .js-display {
-                font-family: Lobster, cursive;
-            }
-            .js-cli, .js-sans {
-                font-family: Lato, sans-serif;
-            }
-            h2 {
-                color: #666;
-                font-size: 24px;
-                margin: 10px auto 40px auto;
-                padding: 0;
-                text-align: center;
-            }
-
-            .explanation {
-                border: solid 5px #444;
-                font-size: 18px;
-                padding: 10px;
-                max-width: 420px;
-                margin: 10px auto;
-            }
-        </style>
     </head>
     <body>
         <!--[if lt IE 8]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-
+        <header>
+            <div class="font-table">
+                <div class="row">
+                    <div class="font cell">
+                         <a href="#" class="js-display text-lobser">
+                            lobster
+                        </a>
+                    </div>
+                    <div class="example cell">
+                        <span class="js-google-fonts text-lobster">google fonts</span>
+                    </div>                 
+                </div>
+                <div class="clearfix"></div>
+                <div class="row">
+                    <div class="font cell">
+                        <a href="#" class="js-sans text-lato">lato</a>, a sans font
+                    </div>
+                    <div class="example cell text-lato">
+                        <span class="js-cli">cli</span>
+                    </div>                
+                </div>
+            </div>
+        </header>
         <h1>
-            <span class="js-google-fonts">google fonts</span>
-            <br>
-            <span class="js-cli">cli</span>
+
         </h1>
         <h2>
             click the heading above to load new fonts
@@ -76,7 +65,7 @@
         <script src="js/lp.js"></script>
         <script>
 
-        getFonts("./../fonts.json", onFontCollectionLoaded);
+        getFonts("./../data/fonts.json", onFontCollectionLoaded);
 
         function onFontCollectionLoaded(fonts) {
             $("h1").click(clickHandler);
