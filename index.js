@@ -1,6 +1,7 @@
 #! /usr/bin/env node
 
 var Writer = require("./writer.js");
+var Parser = require("./parser.js");
 
 var jsdom = require("jsdom");
 var fs = require("fs");
