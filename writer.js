@@ -1,10 +1,41 @@
-module.exports = newDoc;
+var Fonter = require("./fonter");
 
+module.exports = Writer;
 
+function Writer(font, variants, data) {
+    if (!data.hasHead) throw new Error("Document must have head tag");
+    this.font = font;
+    this.variants = variants;
+    this.priorLink = data.hasLinkTag;
+    this.document = data.document;
+}
+Writer.prototype = Object.create(Fonter.prototype);
 
+Writer.prototype.assemble = function assemble() {
+    var head = this.document.querySelector("head"),
+        firstLinkTag = this.document.querySelector("link");
+    head.insertBefore(createLink(this.document, this.font, this.variants), firstLinkTag);
+    return assembleDoc(this.document);
+};
+
+Writer.prototype.writeFile = function writeFile(file) {
+    var html = this.assemble();
+
+    fs.writeFile(file, html, function(err) {
+        if (err) {
+            console.log(err);
+            this.printUsage();
+        }
+    });
+    return this;
+};
+
+Writer.prototype.write = function write(file) {
+    this.writeFile(file);
+};
 
 function assembleDoc(document) {
-    return  _cleanUp(_createDOCTYPE(document) + document.documentElement.outerHTML);
+    return _cleanUp(_createDOCTYPE(document) + document.documentElement.outerHTML);
 }
 
 function createLink(document, font, variants) {

@@ -1,12 +1,9 @@
 var B = require("boots-utils");
+var FONTS;
+
 global.randomFont = randomFont;
 
-B.ajax.loadJSON("./../fonts.json", success);
-
-var FONTS;
-function success(data) {
-    FONTS = data.items;
-}
+B.ajax.loadJSON("./../fonts.json", _setFonts);
 
 function randomFont(category, variants) {
     category = category || "sans-serif";
@@ -26,6 +23,10 @@ function randomFont(category, variants) {
             });
         });
     }
+}
+
+function _setFonts(data) {
+    FONTS = data.items;
 }
 
 function _randomFromArray(ary) {

@@ -21,7 +21,7 @@ gfi ./index.html Lato 300
 
 ## Ideal Usage
 ```
-gfi GIVEMEPRETTYFONTSNOW
+gfi GIVEMEPRETTYFONTS --NOW
 ```
 
 ## In the Works

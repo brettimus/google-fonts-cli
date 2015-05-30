@@ -1,35 +1,33 @@
 #! /usr/bin/env node
 
+var Writer = require("./writer.js");
+
 var jsdom = require("jsdom");
 var fs = require("fs");
 var path = require("path");
 var newDoc = require("./dom");
+var args = process.argv.splice(2);
 
 
-var options = process.argv.splice(2);
-
-var file    = path.join(process.cwd(),(options[0])),
-    fontFamily = options[1],
-    variants = options.slice(2),
-    fontData;
-
-var FONTS = JSON.parse(fs.readFileSync(path.join(__dirname, "fonts.json")).toString()).items;
-var numFonts = FONTS.length;
-var i;
 
 
-if (!options[0]) {
+if (!args[0]) {
     console.log("\n\n***Error: Must provide a path to file.***");
     printUsage();
     return;
 }
+var htmlFile   = path.join(process.cwd(),(args[0])),
+    fontFamily = args[1],
+    variants   = args.slice(2),
+    fontData;
 
-if (!options[1]) {
-    // console.log("\n\n***Error: Must provide a font name.***");
-    // printUsage();
-    // return;
+if (!args[1]) {
     fontFamily = randomFont().name; // TODO optimize, this is dumb bc of for loop below
 }
+
+var FONTS = JSON.parse(fs.readFileSync(path.join(__dirname, "fonts.json")).toString()).items;
+var numFonts = FONTS.length;
+var i;
 
 
 for (i = 0; i < numFonts; i++) {
@@ -40,36 +38,20 @@ for (i = 0; i < numFonts; i++) {
 }
 
 if (!fontData) {
-    console.log("Sorry, "+fontFamily+" was not found. Try updating the font data?");
+    console.log("Sorry, "+fontFamily+" was not found. Try updating your font data?");
     return;
 }
 
 jsdom.env({
-    file: file,
-    done: parse(write),
+    file: htmlFile,
+    done: function(errs, window) {
+        var document = window.document;
+        (new Parser(document)).parse(function(data) {
+            (new Writer(fontFamily, variants, data)).write(file);
+        });
+    },
 });
 
-function parse(next) {
-    return function(errors, window) {
-        var document = window.document;
-        var html = newDoc(document, fontFamily, variants);
-        if (!html) return console.log('Error! could not parse input file');
-        if (next) next(html);
-    };
-}
-
-function printUsage() {
-    console.log("\nSomething goofed up!\nUsage is:\n $ gfi <file> <font-name> <font-variants>");
-}
-
-function write(html) {
-    fs.writeFile(file, html, function(err) {
-        if (err) {
-            console.log(err);
-            printUsage();
-        }
-    });
-}
 
 function randomFont(category, variants) {
     category = category || "sans-serif";
@@ -91,18 +73,3 @@ function randomFont(category, variants) {
         });
     }
 }
-
-function _randomFromArray(ary) {
-    var len = ary.length;
-    return ary[Math.floor(Math.random()*len)];
-}
-
-function _extend(dest, src) {
-    var prop;
-    for (prop in src) {
-        if (src.hasOwnProperty(prop)) {
-            dest[prop] = src[prop];
-        }
-    }
-}
-
