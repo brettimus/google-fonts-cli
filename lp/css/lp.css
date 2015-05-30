@@ -1,63 +1,70 @@
 /* http://coolors.co/app/2b193d-2c365e-484d6d-4b8f8c-c5979d */
 
+html, 
 body {
     color: #222;
 }
 
 header {
-    background: #f4f4f4;
-    min-height: 500px;
-    padding-top: 60px;
+    background: #fff;
+    padding: 60px 20px 20px 20px;
     width: 100%;
 }
 
 .font-table {
     display: table;
-    margin: 0 auto;
+    margin-left: 50px;
     /*width: 100%;*/
 }
 
-.font-table * {
-    border: solid thin white;
-}
+/* for 'wireframing' */
+/*.font-table * {
+    border: solid thin #959595;
+}*/
 
 .font-table .row {
     box-sizing: border-box;
-    /*min-height: 100px;*/
-    min-height: 160px;
-
-    padding: 25px 25px 30px 60px;
-    vertical-align: middle;
+    display: table;
+    min-height: 120px;
+    padding: 15px 25px 20px 40px;
 }
 
 .font-table .row .cell {
   box-sizing: border-box;
   display: table-cell;
-  height: 125px;
-  padding: 15px;
-  padding-top: 25px;
+  height: 165px;
   text-align: center;
-}
-
-.font-table .row .cell a {
-    color: #484D6D;
-    font-size: 24px;
-    text-decoration: none;
-}
-
-.font-table .row .example {
-    min-width: 200px;
-    padding: 30px 15px 15px 40px;
+  vertical-align: middle;
 }
 
 .font-table .row .font {
     color: #666;
-    float: left;
-    width: 125px;
+    opacity: .86;
+    text-align: left;
+    width: 165px;
 }
-.clearfix {
-    clear: both;
+
+.font-table .row .font a {
+    color: #484D6D;
+    display: block;
+    font-size: 24px;
+    text-decoration: none;
 }
+
+.font-table .row .font small {
+    color: #959595;
+    font-family: Lato, sans-serif;
+    font-size: 15px;
+    margin: 10px;
+}
+
+.font-table .row .example {
+    font-size: 52px;
+    min-width: 220px;
+    padding: 30px 15px 60px 40px;
+}
+
+
 
 .text-lobster {
     font-family: Lobster, cursive;
@@ -66,32 +73,45 @@ header {
     font-family: Lato, sans-serif;
 }
 
-/*h1 {
-    color: #222;
-    cursor: pointer;
-    font-size: 68px;
-    margin-bottom: 0;
-    padding: 80px 80px 60px 80px;
+.container {
+    padding-top: 40px;
     text-align: center;
 }
-.js-google-fonts, .js-display {
-    font-family: Lobster, cursive;
+.boots-flat-button {
+  background: #4B8F8C;
+  border: 0;
+  border-bottom: solid 3px #2C365E;
+  border-radius: 10em;
+  box-sizing: border-box;
+  color: #C5979D;
+  cursor: pointer;
+  font-family: Lobster, cursive;
+  font-size: 32px;
+  height: 85px;
+  line-height: 60px;
+  overflow: hidden;
+  padding: 8px 32px 24px 32px;
+  text-align: center;
+  text-decoration: none;
+  text-shadow: 1px 1px 0 #fff,
+                -1px -1px 0 #fff,
+                1px -1px 0 #fff,
+                -1px 1px 0 #fff;
+  transition: background .3s cubic-bezier(0.31, 0.13, 0.36, 1);
 }
-.js-cli, .js-sans {
-    font-family: Lato, sans-serif;
-}
-h2 {
-    color: #666;
-    font-size: 24px;
-    margin: 10px auto 40px auto;
-    padding: 0;
-    text-align: center;
-}
+.boots-flat-button:hover {
+  color: #fff;
+  text-shadow: 1px 1px 0 #c5979d,
+              -1px -1px 0 #c5979d,
+              1px -1px 0 #c5979d,
+              -1px 1px 1px #c5979d;
 
-.explanation {
-    border: solid 5px #444;
-    font-size: 18px;
-    padding: 10px;
-    max-width: 420px;
-    margin: 10px auto;
-}*/
+  transition: color .4s cubic-bezier(0.31, 0.13, 0.36, 1);
+}
+.boots-flat-button:focus {
+    box-shadow: 1px 1px 1px #888,
+                -1px -1px 1px #888,
+                1px -1px 1px #666,
+                -1px 1px 1px #666;
+    outline: none;
+}

@@ -1,6 +1,6 @@
 var B = require("boots-utils");
 var FontCollection = require("../../src/font-collection.js");
-
+var FONTCACHE;
 global.getFonts = function getFonts(path, next) {
     B.ajax.loadJSON(path, function(data) {
         var fonts = new FontCollection(data);
