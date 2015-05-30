@@ -10,7 +10,7 @@ function Parser(document) {
     }
     this.document = document;
 }
-Parse.prototype = Object.create(Fonter.prototype);
+Parser.prototype = Object.create(Fonter.prototype);
 
 /** passes along data about an html document */
 Parser.prototype.parse = function parse(next) {

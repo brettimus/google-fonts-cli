@@ -16,7 +16,7 @@ var args = process.argv.splice(2);
 if (!args[0]) {
     console.log("\n\n***Error: Must provide a path to file.***");
     printUsage();
-    return;
+    process.exit(1);
 }
 var htmlFile   = path.join(process.cwd(),(args[0])),
     fontFamily = args[1],
@@ -41,7 +41,7 @@ for (i = 0; i < numFonts; i++) {
 
 if (!fontData) {
     console.log("Sorry, "+fontFamily+" was not found. Try updating your font data?");
-    return;
+    process.exit(2);
 }
 
 jsdom.env({
