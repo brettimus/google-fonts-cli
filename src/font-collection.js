@@ -8,7 +8,7 @@ module.exports = FontCollection;
  */
 function FontCollection(data) {
     this.FONTS = data.items;
-}
+} 
 
 /** currently only searches for family */
 FontCollection.prototype.find = function(options) {
@@ -24,7 +24,7 @@ FontCollection.prototype.find = function(options) {
 FontCollection.prototype.random = function(category, variants) {
     var fonts = [];
     // TODO - refactor. can this in one pass instead of two
-    // TODO - resolve whether the parameters are treated as "and" or "or"
+    // TODO - resolve whether the parameters are treated as "and" or "or"w
     if (variants) {
         fonts = this.FONTS.filter(_fontVariantFilter);
     }

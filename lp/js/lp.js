@@ -3,6 +3,7 @@
 var B = require("boots-utils");
 var FontCollection = require("../../src/font-collection.js");
 var FONTCACHE;
+global.BooTemplate = require("boo-templates");
 global.getFonts = function getFonts(path, next) {
     B.ajax.loadJSON(path, function(data) {
         var fonts = new FontCollection(data);
@@ -13,7 +14,37 @@ global.getFonts = function getFonts(path, next) {
 
 };
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../../src/font-collection.js":5,"boots-utils":4}],2:[function(require,module,exports){
+},{"../../src/font-collection.js":7,"boo-templates":3,"boots-utils":6}],2:[function(require,module,exports){
+var B = require("boots-utils");
+
+module.exports = Compiler;
+
+/**
+ * @constructor
+ * @param {string} [open] - margs beginning of template string that's to be evaluated
+ * @param {string} [close] - marks end of template string that's to be evaluated
+ */
+function Compiler(open, close) {
+    this.open  = open  || "{{";
+    this.close = close || "}}";
+}
+
+/**
+ * Compiles a string in the given object's context 
+ * @method
+ */
+Compiler.prototype.compile = function(string, object) {
+    for (var prop in object) {
+        if (object.hasOwnProperty(prop)) {
+            string = B.replaceAll(string, this.open+prop+this.close, object[prop]);
+        }
+    }
+    return string;
+};
+},{"boots-utils":6}],3:[function(require,module,exports){
+var Compiler = require("./compiler");
+module.exports = Compiler;
+},{"./compiler":2}],4:[function(require,module,exports){
 module.exports = {
     loadJSON: loadJSON,
 };
@@ -45,7 +76,7 @@ function loadJSON(path, success, error, context) {
     xhr.send();
     return xhr;
 }
-},{}],3:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 module.exports = {
     first: first,
     isArray: isArray,
@@ -101,7 +132,7 @@ function range(start, end, step) {
 function randomInArray(ary) {
     return ary[Math.floor(Math.random() * ary.length)];
 }
-},{}],4:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 module.exports = {
     ajax: require("./ajax"),
     array: require("./array"),
@@ -171,7 +202,7 @@ function extendHelper(destination, source) {
     }
     return destination;
 }
-},{"./ajax":2,"./array":3}],5:[function(require,module,exports){
+},{"./ajax":4,"./array":5}],7:[function(require,module,exports){
 var B = require('boots-utils');
 
 module.exports = FontCollection;
@@ -182,7 +213,7 @@ module.exports = FontCollection;
  */
 function FontCollection(data) {
     this.FONTS = data.items;
-}
+} 
 
 /** currently only searches for family */
 FontCollection.prototype.find = function(options) {
@@ -198,6 +229,7 @@ FontCollection.prototype.find = function(options) {
 FontCollection.prototype.random = function(category, variants) {
     var fonts = [];
     // TODO - refactor. can this in one pass instead of two
+    // TODO - resolve whether the parameters are treated as "and" or "or"w
     if (variants) {
         fonts = this.FONTS.filter(_fontVariantFilter);
     }
@@ -222,4 +254,4 @@ FontCollection.prototype.random = function(category, variants) {
 };
 
 
-},{"boots-utils":4}]},{},[1]);
+},{"boots-utils":6}]},{},[1]);

@@ -23,10 +23,13 @@
         <![endif]-->
         <header>
             <div class="font-table">
-                <div class="row">
+                <div class='text-center'>
+                    <button class="boots-flat-button">Get a Random Font!</button>                
+                </div> 
+                <div class="row first">
                     <div class="font cell">
                          <a href="#" class="js-display text-lobster">
-                            lobster
+                            Lobster
                         </a>
                         <small>(a display font)</small>
                     </div>
@@ -36,25 +39,23 @@
                 </div>
                 <div class="row">
                     <div class="font cell">
-                        <a href="#" class="js-sans text-lato">lato</a>
+                        <a href="#" class="js-sans text-lato">Lato</a>
                         <small>(a sans font)</small>
                     </div>
                     <div class="example cell text-lato">
-                        <span class="js-cli">cli</span>
+                        <span class="js-cli">command line interface</span>
                     </div>                
                 </div>
             </div>
         </header>
         <div class="container">
-            <div>
-                <button class="boots-flat-button">Get a Random Font</button>                
-            </div>
+
             <!-- intern project-- replace with handlebars templates ?? -->
-            <article class="recent">
+            <article class="recent js-recent">
                 <section>
-                    <header>
-                        <h3>lato &amp; lobster</h3>
-                    </header>
+                    <div>
+                        <h3>Lato &amp; Lobster</h3>
+                    </div>
                 </section>
             </article>
         </div>
@@ -64,18 +65,25 @@
         <script src="js/lp.js"></script>
         <script>
         var FONT_CACHE = [];
-        
+        var BAR = "<section><div><h3>{{display}} &amp; {{sans}}</h3></div></section>";
         getFonts("./../data/fonts.json", onFontCollectionLoaded);
 
         function onFontCollectionLoaded(fonts) {
             $("button").click(clickHandler);
-            setInterval(clickHandler, 7500);
+            var timeout = setTimeout(clickHandler, 5000);
 
             function clickHandler() {
+                clearTimeout(timeout);
                 var f1 = fonts.random("display"),
                     f2 = fonts.random("sans-serif");
 
                 FONT_CACHE.push([f1, f2]);
+                var lastSeen = (new BooTemplate()).compile(BAR, {
+                    display: f1.family,
+                    sans: f2.family,
+                });
+
+                $(".js-recent").first("section").prepend(lastSeen);
                 // inject link tags
                 $("head").append(toLinkTag(f1.family)).append(toLinkTag(f2.family));
 
@@ -93,6 +101,7 @@
                 return $("<link rel='stylesheet' type='text/css'/>").attr("href", "https://fonts.googleapis.com/css?family="+encodeURIComponent(name))
             }
         }
+
 
         </script>
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->

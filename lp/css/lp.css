@@ -1,4 +1,4 @@
-/* http://coolors.co/app/2b193d-2c365e-484d6d-4b8f8c-c5979d */
+ /*http://coolors.co/app/2b193d-2c365e-484d6d-4b8f8c-c5979d */
 
 html, 
 body {
@@ -9,6 +9,10 @@ header {
     background: #fff;
     padding: 60px 20px 20px 20px;
     width: 100%;
+}
+
+h3 {
+  text-align: left;
 }
 
 .font-table {
@@ -27,6 +31,10 @@ header {
     display: table;
     min-height: 120px;
     padding: 15px 25px 20px 40px;
+}
+
+.font-table .row.first {
+  margin-top: 25px;
 }
 
 .font-table .row .cell {
@@ -72,18 +80,34 @@ header {
 .text-lato {
     font-family: Lato, sans-serif;
 }
+.text-center {
+  text-align: center;
+}
 
 .container {
-    padding-top: 40px;
-    text-align: center;
+    /*padding: 100px;*/
+    /*text-align: center;*/
 }
+
+
+.container article {
+  margin-left: 110px
+}
+
+h3 {
+  color: #858585;
+  font-familiy: Lato, sans-serif;
+  font-size: 26px;
+  font-weight: 300;
+}
+
 .boots-flat-button {
-  background: #4B8F8C;
+  background: #c5979d;
   border: 0;
-  border-bottom: solid 3px #2C365E;
   border-radius: 10em;
+  border: solid 3px #c5979d;
   box-sizing: border-box;
-  color: #C5979D;
+  color: #fff;
   cursor: pointer;
   font-family: Lobster, cursive;
   font-size: 32px;
@@ -93,25 +117,18 @@ header {
   padding: 8px 32px 24px 32px;
   text-align: center;
   text-decoration: none;
-  text-shadow: 1px 1px 0 #fff,
-                -1px -1px 0 #fff,
-                1px -1px 0 #fff,
-                -1px 1px 0 #fff;
-  transition: background .3s cubic-bezier(0.31, 0.13, 0.36, 1);
-}
-.boots-flat-button:hover {
-  color: #fff;
   text-shadow: 1px 1px 0 #c5979d,
               -1px -1px 0 #c5979d,
               1px -1px 0 #c5979d,
               -1px 1px 1px #c5979d;
-
-  transition: color .4s cubic-bezier(0.31, 0.13, 0.36, 1);
+  transition: background .3s cubic-bezier(0.31, 0.13, 0.36, 1);
+}
+.boots-flat-button:hover {
+  background: #fff;
+  color: #c5979d;
+  text-shadow: none;
+  transition: background .4s cubic-bezier(0.31, 0.13, 0.36, 1);
 }
 .boots-flat-button:focus {
-    box-shadow: 1px 1px 1px #888,
-                -1px -1px 1px #888,
-                1px -1px 1px #666,
-                -1px 1px 1px #666;
     outline: none;
 }
