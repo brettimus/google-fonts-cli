@@ -1,14 +1,15 @@
 #! /usr/bin/env node
 
-var Writer = require("./writer.js");
-var Parser = require("./parser.js");
+// Vendor
+var jsdom = require("jsdom"),
+    fs = require("fs"),
+    path = require("path");
 
-var jsdom = require("jsdom");
-var fs = require("fs");
-var path = require("path");
-var newDoc = require("./dom");
+// Objects for reading the file and writing a new one
+var Parser = require("./parser.js"),
+    Writer = require("./writer.js");
+
 var args = process.argv.splice(2);
-
 
 
 
