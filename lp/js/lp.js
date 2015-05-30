@@ -1,17 +1,37 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-(function (global){
-var B = require("boots-utils");
-var FONTS;
+var B = require('boots-utils');
 
-global.randomFont = randomFont;
+module.exports = FontCollection;
 
-B.ajax.loadJSON("./../fonts.json", _setFonts);
+/**
+ * @constructor
+ * @param {Font[]} data - A json blob from the google-fonts-api
+ */
+function FontCollection(data) {
+    this.FONTS = data.items;
+}
 
-function randomFont(category, variants) {
-    category = category || "sans-serif";
-    variants = variants || [];
-    var fonts = FONTS.filter(_fontVariantFilter).concat(FONTS.filter(_fontCategoryFilter));
-    return _randomFromArray(fonts);
+/** currently only searches for family */
+FontCollection.prototype.find = function(options) {
+    var family = options.family;
+
+    for (var i = 0; i < this.FONTS.length; i++) {
+        if (this.FONTS[i].family === family) {
+            return this.FONTS[i];
+        }
+    }
+};
+
+FontCollection.prototype.random = function(category, variants) {
+    var fonts = this.FONTS;
+    // TODO - refactor. can this in one pass instead of two
+    if (variants) {
+        fonts = fonts.filter(_fontVariantFilter);
+    }
+    if (category) {
+        fonts = fonts.concat(this.FONTS.filter(_fontCategoryFilter));
+    }
+    return B.array.randomInArray(fonts);
 
     function _fontCategoryFilter(font) {
         return font.category === category;
@@ -25,18 +45,25 @@ function randomFont(category, variants) {
             });
         });
     }
-}
+};
 
-function _setFonts(data) {
-    FONTS = data.items;
-}
 
-function _randomFromArray(ary) {
-    var len = ary.length;
-    return ary[Math.floor(Math.random()*len)];
-}
+},{"boots-utils":5}],2:[function(require,module,exports){
+(function (global){
+var B = require("boots-utils");
+var FontCollection = require("../../font-collection.js");
+
+global.getFonts = function getFonts(path, next) {
+    B.ajax.loadJSON(path, function(data) {
+        var fonts = new FontCollection(data);
+        if (next) next(fonts);
+    }, function(err) {
+        console.log("Getting font data failed. Here's the error: ", err);
+    });
+
+};
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"boots-utils":4}],2:[function(require,module,exports){
+},{"../../font-collection.js":1,"boots-utils":5}],3:[function(require,module,exports){
 module.exports = {
     loadJSON: loadJSON,
 };
@@ -48,17 +75,18 @@ module.exports = {
  * @param {function} success
  * @param {function} error
  */
-function loadJSON(path, success, error) {
+function loadJSON(path, success, error, context) {
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function() {
+        context = context || this;
         if (xhr.readyState === XMLHttpRequest.DONE) {
             if (xhr.status === 200) {
                 if (success) {
-                    success(JSON.parse(xhr.responseText));
+                    success.call(context, JSON.parse(xhr.responseText));
                 }
             } else {
                 if (error) {
-                    error(xhr);
+                    error.call(context, xhr);
                 }
             }
         }
@@ -67,23 +95,35 @@ function loadJSON(path, success, error) {
     xhr.send();
     return xhr;
 }
-},{}],3:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 module.exports = {
     first: first,
     isArray: isArray,
+    randomInArray: randomInArray,
     range: range,
 };
 
-function first(ary, predicate) {
-    var len = ary.len;
+/**
+ * Returns first element of array to return true in the given predicate function.
+ * @function isArray
+ * @param {array} ary
+ * @param {function} predicate
+ * @return {*}
+ */
+function first(ary, predicate, context) {
+    var len = ary.length;
     for (var i = 0; i < len; i++) {
-        if (predicate(ary[i])) {
+        if (predicate.call(context, ary[i])) {
             return ary[i];
         }
     }
 }
 
-
+/**
+ * @function isArray
+ * @param {*} o
+ * @return {boolean}
+ */
 function isArray(o) {
     return Object.prototype.toString.call(o) === "[object Array]";
 }
@@ -101,7 +141,17 @@ function range(start, end, step) {
     for (;start <= end; start += step) result.push(start);
     return result;
 }
-},{}],4:[function(require,module,exports){
+
+/**
+ * 
+ * @function randomInArray
+ * @param {array} ary
+ * @return {*}
+ */
+function randomInArray(ary) {
+    return ary[Math.floor(Math.random() * ary.length)];
+}
+},{}],5:[function(require,module,exports){
 module.exports = {
     ajax: require("./ajax"),
     array: require("./array"),
@@ -171,4 +221,4 @@ function extendHelper(destination, source) {
     }
     return destination;
 }
-},{"./ajax":2,"./array":3}]},{},[1]);
+},{"./ajax":3,"./array":4}]},{},[2]);

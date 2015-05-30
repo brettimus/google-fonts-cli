@@ -36,4 +36,8 @@ gfi GIVEMEPRETTYFONTS --NOW
 * ~~Preserve original document's indentation~~ ( a little buggy but almost there )
 * Optimize stuff that says it needs to be opmtimized
 * Hammer out interface
+* ~~Refactor into objects~~
+* Reuse code in the browser
+* Arg parser
+* Figure out how to treat spaces in font names on the command lines
 * PROFIT

@@ -73,27 +73,38 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.3.min.js"><\/script>')</script>
         <script src="js/plugins.js"></script>
-        <script src="js/main.js"></script>
         <script src="js/lp.js"></script>
         <script>
-        $("h1").click(clickHandler);
-        setInterval(clickHandler, 7500);
-        function clickHandler() {
-            var f1 = randomFont("display"),
-                f2 = randomFont("sans-serif");
-            console.log("display", f1);
-            console.log("sans", f2);
-            $("head").append(toLinkTag(f1.family)).append(toLinkTag(f2.family));
-            $(".js-google-fonts,.js-display").css("font-family", f1.family);
-            $('.js-display').text(f1.family);
-            $(".js-cli,.js-sans").css("font-family", f2.family);
-            $(".js-sans").text(f2.family)
-            return clickHandler;
+
+        getFonts("./../fonts.json", onFontCollectionLoaded);
+
+        function onFontCollectionLoaded(fonts) {
+            $("h1").click(clickHandler);
+            setInterval(clickHandler, 7500);
+
+            function clickHandler() {
+                var f1 = fonts.random("display"),
+                    f2 = fonts.random("sans-serif");
+                console.log("display", f1);
+                console.log("sans", f2);
+                // inject link tags
+                $("head").append(toLinkTag(f1.family)).append(toLinkTag(f2.family));
+
+                // apply inline styles to "google fonts" heading
+                $(".js-google-fonts,.js-display").css("font-family", f1.family);
+                $('.js-display').text(f1.family);
+
+                // apply inline styles to "cli" heading
+                $(".js-cli,.js-sans").css("font-family", f2.family);
+                $(".js-sans").text(f2.family)
+                return clickHandler;
+            }
+
+            function toLinkTag(name) {
+                return $("<link rel='stylesheet' type='text/css'/>").attr("href", "https://fonts.googleapis.com/css?family="+encodeURIComponent(name))
+            }
         }
 
-        function toLinkTag(name) {
-            return $("<link rel='stylesheet' type='text/css'/>").attr("href", "https://fonts.googleapis.com/css?family="+encodeURIComponent(name))
-        }
         </script>
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
         <script>
