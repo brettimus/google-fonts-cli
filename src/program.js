@@ -14,7 +14,7 @@ module.exports = Program;
 
 // if you can't tell by the name, this does too much and needs to be rethought
 function Program(args, fonts) {
-    fonts = fonts || JSON.parse(fs.readFileSync(path.join(__dirname, "fonts.json")).toString());
+    fonts = fonts || JSON.parse(fs.readFileSync(path.join(__dirname, "../data/fonts.json")).toString());
     this.fonts = new FontCollection(fonts);
 
     Fonter.call(this);
@@ -32,7 +32,7 @@ function Program(args, fonts) {
     else {
         this.fontFamily = args[1];
         this.variants   = args.slice(2);
-        this.fontData = this.fonts.find({family: this.fontFamily, variants: variants});
+        this.fontData = this.fonts.find({family: this.fontFamily, variants: this.variants});
     }
 
     if (!this.fontData) {
