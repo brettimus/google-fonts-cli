@@ -1,6 +1,6 @@
 {
   "name": "google-fonts-cli",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "a quick way to add a google font to your project",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
