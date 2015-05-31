@@ -14,7 +14,7 @@ global.getFonts = function getFonts(path, next) {
 
 };
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../../src/font-collection.js":7,"boo-templates":3,"boots-utils":6}],2:[function(require,module,exports){
+},{"../../src/font-collection.js":8,"boo-templates":3,"boots-utils":7}],2:[function(require,module,exports){
 var B = require("boots-utils");
 
 module.exports = Compiler;
@@ -41,10 +41,40 @@ Compiler.prototype.compile = function(string, object) {
     }
     return string;
 };
-},{"boots-utils":6}],3:[function(require,module,exports){
+},{"boots-utils":7}],3:[function(require,module,exports){
 var Compiler = require("./compiler");
-module.exports = Compiler;
-},{"./compiler":2}],4:[function(require,module,exports){
+var Template = require("./template");
+var BooTemplate = Template;
+BooTemplate.Compiler = Compiler;
+module.exports = Template;
+},{"./compiler":2,"./template":4}],4:[function(require,module,exports){
+var Compiler = require("./compiler");
+
+module.exports = Template;
+
+/**
+ * @constructor
+ * @param {string} template - The template string
+ * @param {string} [open] - margs beginning of a template value that's to be evaluated
+ * @param {string} [close] - marks end of a template value that's to be evaluated
+ */
+ function Template(template, open, close) {
+    this.template = template;
+    this.compiler = new Compiler(open, close);
+ }
+
+/**
+ * Wraps Compiler~compile with the target string scoped to Template~string
+ * @method
+ * @param {object} o - Ojbect whose values are inserted into the string.
+ * @return {string}
+ */
+ Template.prototype.compile = function(o) {
+     return this.compiler.compile(this.template, o);
+ };
+
+
+},{"./compiler":2}],5:[function(require,module,exports){
 module.exports = {
     loadJSON: loadJSON,
 };
@@ -76,7 +106,7 @@ function loadJSON(path, success, error, context) {
     xhr.send();
     return xhr;
 }
-},{}],5:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 module.exports = {
     first: first,
     isArray: isArray,
@@ -132,7 +162,7 @@ function range(start, end, step) {
 function randomInArray(ary) {
     return ary[Math.floor(Math.random() * ary.length)];
 }
-},{}],6:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 module.exports = {
     ajax: require("./ajax"),
     array: require("./array"),
@@ -202,7 +232,7 @@ function extendHelper(destination, source) {
     }
     return destination;
 }
-},{"./ajax":4,"./array":5}],7:[function(require,module,exports){
+},{"./ajax":5,"./array":6}],8:[function(require,module,exports){
 var B = require('boots-utils');
 
 module.exports = FontCollection;
@@ -254,4 +284,4 @@ FontCollection.prototype.random = function(category, variants) {
 };
 
 
-},{"boots-utils":6}]},{},[1]);
+},{"boots-utils":7}]},{},[1]);

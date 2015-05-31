@@ -135,6 +135,9 @@ h3 small {
               1px -1px 0 #f4f4f4,
               -1px 1px 1px #f4f4f4;
   transition: background .3s cubic-bezier(0.31, 0.13, 0.36, 1);
+
+  width: 100%;
+  max-width: 800px;
 }
 .boots-flat-button:hover {
   background: #c5979d;

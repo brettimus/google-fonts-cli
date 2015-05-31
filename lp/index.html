@@ -14,6 +14,7 @@
 
         <link rel="stylesheet" href="css/normalize.css">
         <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/pure-grid-7.css">
         <link rel="stylesheet" href="css/lp.css">
         <script src="js/vendor/modernizr-2.8.3.min.js"></script>
     </head>
@@ -22,10 +23,10 @@
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
         <header>
+            <div class='u-pad-left u-full-width'>
+                <button class="boots-flat-button">Get a Random Font!</button>                
+            </div> 
             <div class="font-table">
-                <div class='u-pad-left'>
-                    <button class="boots-flat-button">Get a Random Font!</button>                
-                </div> 
                 <div class="row first">
                     <div class="font cell">
                          <a href="#" class="js-display text-lobster">
@@ -40,7 +41,7 @@
                 <div class="row">
                     <div class="font cell">
                         <a href="#" class="js-sans text-lato">Lato</a>
-                        <small>(a sans font)</small>
+                        <small>(a sans-serif font)</small>
                     </div>
                     <div class="example cell text-lato">
                         <span class="js-cli">command line interface</span>
@@ -78,16 +79,15 @@
         <script src="js/lp.js"></script>
         <script>
         var FONT_CACHE = [];
-        var _EXAMPLE = "<span class='example' style='font-family:\"{{family}}\" {{category}};'>{{family}}</span>";
+        var _EXAMPLE = new BooTemplate("<span class='example' style='font-family:\"{{family}}\" {{category}};'>{{family}}</span>");
 
-        var _BAR = "<section><div><h3>"+
+        var _BAR = new BooTemplate("<section><div><h3>"+
                     "{{displayExample}} &nbsp;&bull;&nbsp; {{sansExample}}"+
                     "<small>{{display}} &nbsp;&bull;&nbsp; {{sans}}</small>"+
-                    "</h3></div></section>";
+                    "</h3></div></section>");
         getFonts("./../data/fonts.json", onFontCollectionLoaded);
 
         function onFontCollectionLoaded(fonts) {
-            var compiler = new BooTemplate();
             $("button").click(clickHandler);
             var timeout = setTimeout(clickHandler, 5000);
 
@@ -97,11 +97,11 @@
                     f2 = fonts.random("sans-serif");
 
                 FONT_CACHE.push([f1, f2]);
-                var $lastSeen = $(compiler.compile(_BAR, {
+                var $lastSeen = $(_BAR.compile({
                     display: f1.family,
-                    displayExample: compiler.compile(_EXAMPLE, f1),
+                    displayExample: _EXAMPLE.compile(f1),
                     sans: f2.family,
-                    sansExample: compiler.compile(_EXAMPLE, f2),
+                    sansExample: _EXAMPLE.compile(f2),
                 }));
 
                 $lastSeen.hide();
