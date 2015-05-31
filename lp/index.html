@@ -23,7 +23,7 @@
         <![endif]-->
         <header>
             <div class="font-table">
-                <div class='text-center'>
+                <div class='u-pad-left'>
                     <button class="boots-flat-button">Get a Random Font!</button>                
                 </div> 
                 <div class="row first">
@@ -54,7 +54,20 @@
             <article class="recent js-recent">
                 <section>
                     <div>
-                        <h3>Lato &amp; Lobster</h3>
+                        <h3>
+                            <span class="text-lobster">
+                                Lobster
+                            </span>
+                            &nbsp;&bull;&nbsp;
+                            <span class="text-lato">
+                                Lato                                
+                            </span>
+                            <small>
+                                Lobster
+                                &nbsp;&bull;&nbsp;
+                                Lato
+                            </small>
+                        </h3>
                     </div>
                 </section>
             </article>
@@ -65,10 +78,16 @@
         <script src="js/lp.js"></script>
         <script>
         var FONT_CACHE = [];
-        var BAR = "<section><div><h3>{{display}} &amp; {{sans}}</h3></div></section>";
+        var _EXAMPLE = "<span class='example' style='font-family:\"{{family}}\" {{category}};'>{{family}}</span>";
+
+        var _BAR = "<section><div><h3>"+
+                    "{{displayExample}} &nbsp;&bull;&nbsp; {{sansExample}}"+
+                    "<small>{{display}} &nbsp;&bull;&nbsp; {{sans}}</small>"+
+                    "</h3></div></section>";
         getFonts("./../data/fonts.json", onFontCollectionLoaded);
 
         function onFontCollectionLoaded(fonts) {
+            var compiler = new BooTemplate();
             $("button").click(clickHandler);
             var timeout = setTimeout(clickHandler, 5000);
 
@@ -78,12 +97,17 @@
                     f2 = fonts.random("sans-serif");
 
                 FONT_CACHE.push([f1, f2]);
-                var lastSeen = (new BooTemplate()).compile(BAR, {
+                var $lastSeen = $(compiler.compile(_BAR, {
                     display: f1.family,
+                    displayExample: compiler.compile(_EXAMPLE, f1),
                     sans: f2.family,
-                });
+                    sansExample: compiler.compile(_EXAMPLE, f2),
+                }));
 
-                $(".js-recent").first("section").prepend(lastSeen);
+                $lastSeen.hide();
+                $(".js-recent").first("section").prepend($lastSeen);
+                $lastSeen.slideDown(600);
+
                 // inject link tags
                 $("head").append(toLinkTag(f1.family)).append(toLinkTag(f2.family));
 
