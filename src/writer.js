@@ -1,4 +1,5 @@
 var fs = require("fs"),
+    escape = require('querystring').escape,
     Fonter = require("./fonter");
 
 module.exports = Writer;
@@ -43,7 +44,7 @@ function createLink(document, font, variants) {
     var result = document.createElement("link");
     result.rel = "stylesheet";
     result.type = "text/css";
-    result.href = "http://fonts.googleapis.com/css?family="+_fontString(font, variants);
+    result.href = "http://fonts.googleapis.com/css?family="+escape(_fontString(font, variants));
     return result;
 }
 

@@ -5,23 +5,23 @@ A simple tool for adding google fonts on the fly.
 
 ## Installation
 ```
-npm install -g gfi
+npm install -g google-fonts-cli
 ```
 
 ## Usage
 
 ```
-gfi /path/to/file.html FontName FontVariant1 FontVariant2
+google-font /path/to/file.html FontName FontVariant1 FontVariant2
 ```
 
 ** For Example**
 ```
-gfi ./index.html Lato 300
+google-font ./index.html Lato 300
 ```
 
 ## Ideal Usage
 ```
-gfi GIVEMEPRETTYFONTS --NOW
+google-font GIVEMEPRETTYFONTS --NOW
 ```
 
 ## In the Works

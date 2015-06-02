@@ -30,7 +30,7 @@ function Program(args, fonts) {
         this.fontFamily = this.fontData.family;
     }
     else {
-        this.fontFamily = args[1];
+        this.fontFamily = args[1].split("-").join(" "); // allows us to use fonts with spaces in their names (just sub in hyphens)
         this.variants   = args.slice(2);
         this.fontData = this.fonts.find({family: this.fontFamily, variants: this.variants});
     }
@@ -48,6 +48,11 @@ Program.prototype.run = function() {
     jsdom.env({
         file: this.htmlFile,
         done: function(errs, window) {
+            if (errs) {
+                console.log(errs);
+                _this.printUsage("Oops! Something went wrong.\n");
+                process.exit(1);
+            }
             var document = window.document;
             (new Parser(document)).parse(function(data) {
                 (new Writer(_this.fontFamily, _this.variants, data)).write(_this.htmlFile);
