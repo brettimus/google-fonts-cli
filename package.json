@@ -15,12 +15,16 @@
     "url": "https://github.com/brettimus/google-fonts-cli.git"
   },
   "bugs": {
-    "url" : "https://github.com/brettimus/google-fonts-cli/issues"
+    "url": "https://github.com/brettimus/google-fonts-cli/issues"
   },
   "author": "boots <brbeut@gmail.com> (http://brettim.us/)",
   "license": "MIT",
   "preferGlobal": true,
   "bin": {
     "google-font": "index.js"
+  },
+  "dependencies": {
+    "boots-utils": "^0.2.5",
+    "jsdom": "3.1.2"
   }
 }

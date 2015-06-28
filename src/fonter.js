@@ -12,5 +12,5 @@ Fonter.prototype.printUsage = function(message) {
     else {
         message = "";
     }
-    console.log("\nSomething goofed up!\nUsage is:\n $ gfi <file> <font-name> <font-variants>\n\n"+message);
+    console.log("\nSomething goofed up!\nUsage is:\n $ google-font <file> <font-name> <font-variants>\n\n"+message);
 };
